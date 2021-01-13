@@ -4,21 +4,38 @@ import './Products.css';
 
 const Products = (props) => {
 
-    const {name, img, original_price, image_gallery} = props.data
-    const imgUrl = image_gallery[0]?.image_link || "https://s3.ap-south-1.amazonaws.com/cdn-shebaxyz/images/bulk/jpg/Services/28/600.jpg";
-    console.log(imgUrl);
+    const {name, image_gallery, original_price, discounted_amount} = props.data
+    const imgUrl = image_gallery[0]?.image_link || "https://s3.ap-south-1.amazonaws.com/cdn-shebadev/images/pos/services/thumbs/default.jpg";
     return (
-        <div className="col-md-4">
-            <div className="card-container">
-                <img className='card-img' src={imgUrl} alt={name}/>
-                <h4>{name.slice(0, 25)}</h4>
-                <div className="d-flex">
-                    <div>
-                    <h4 id="price">$ {original_price}</h4>
+        <div className="col-md-4 col-sm-6">
+            <div class="product-card p-0">
+                <img className="card-img" src={imgUrl} alt="Card image cap"/>
+                <span className="badge badge-warning">21%</span>
+                <div className="card-body p-0">
+                    <div className="product-title">
+                        <h5 className="product-title ">{name.slice(0,63)}</h5>
                     </div>
-                    <button className="btn addBtn">Add</button>
+        
+                    <div className="d-flex price-add-container justify-content-between">
+                        <div className='price-disc-container'>
+                            <h4>৳ {original_price}</h4>
+                            {
+                                <h5 style={{textDecoration: "line-through"}}>৳ {original_price}</h5>
+                            }
+                        </div>
+                        {
+                            true ?
+                            <button className="addBtn">+ Add</button>
+                            :
+                            <div className="otherBtn">
+                                <button className="otherBtn">+</button>
+                                <input type="text"/>
+                                <button className="otherBtn">-</button>
+                            </div>
+                        }
+                    </div>
                 </div>
-            </div>
+            </div>            
         </div>
     );
 };
